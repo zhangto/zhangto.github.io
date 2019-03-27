@@ -1,0 +1,26 @@
+﻿# Site settings
+name: Welcome
+email: zhtoooooo@163.com
+author: 张桐
+url: https://www.zhangto.github.io
+resume_site: https://www.zhangto.github.io
+github: https://github.com/zhangto
+baseurl: ""
+description: Actually, less is more!
+meta_description: 康志华;个人博客;学而不思则罔;思而不学则殆;生命不止;折腾不休
+motto: It's our wits that make us men.
+banner: 学而不思则罔，思而不学则殆。
+
+#permalink: /:categories/:year/:month/:day/:title/
+permalink: /:year/:month/:day/:title/
+paginate: 10
+
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
+
+github_username: luoyan35714
+
+# Build settings
+markdown: kramdown
+
+baidu_analysis: 94be4b0f9fc5d94cc0d0415ea6761ae9
+revolvermaps: 5ytn1ssq6za
