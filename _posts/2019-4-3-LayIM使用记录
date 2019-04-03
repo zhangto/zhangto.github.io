@@ -1,0 +1,139 @@
+#使用LayIM框架记录
+
+##前言
+
+[LayIM](http://layim.layui.com/)是一套基于[layui](https://www.layui.com/)框架的web即时通讯前端解决方案（只是web前端的解决方案，至于服务器端需要自己编写代码）。
+
+在WebIM似乎已被打入冷宫的今天，LayIM正试图重新为网页带来一些社交想象。作为一款Web即时通讯前端解决方案（服务端需自写），LayIM提供了全方位的前端接口支撑，不仅能让您更高效地接入到自己的通讯服务中，更能让你轻松地与 *环信*、*融云*、*野狗* 等第三方通讯服务平台对接。LayIM始终坚持极简的体验，致力于拉近你的用户在web间的距离。 
+
+购买LayIM之后，将获得一个包含了LayIM的layui框架，使用的时候，与单纯使用layui框架时的方式一样，只需要引入layui.css和layui.js两个文件即可。
+
+本文的重点在于记录LayIM和node.js的结合。
+
+##node.js代码
+
+在Fly社区也有关于node.js和LayIM的结合案例，但是因为粘贴出来的案例只有node.js的代码，导致很多人依然不明所以。
+
+下面的代码转自[Fly社区](https://fly.layui.com/jie/3205/)：
+
+```javascript
+var app = require('express')(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server);
+/*监听端口*/    
+server.listen(3000,function(){
+	console.log("开启成功！")
+});
+
+/*初始化用户对象用了分发消息，*/
+var user = {};
+
+//定义接受者客户端id
+io.on('connection', function(socket) {
+    /*开始捕捉事件*/
+    socket.on('message', function(d) {
+        // console.log(d);
+        var type=d.mine.type;
+        console.log(type);
+        switch (type) {
+        /*用户上线*/
+        case 'reg':
+            console.log('用户注册!');
+            user[d.mine.id] = socket.id;
+            var num=0,uuser=[];
+            for (var x in user){
+               uuser.push(x);
+                num++;
+            }
+            // 在线数量
+            d.num=num;
+            //全局事件 
+            socket.broadcast.emit('addList', d);
+            console.log('用户上线：用户id=' + d.mine.id);
+            break;
+         /*用户发送消息*/   
+        case 'chatMessage':
+			console.log('发送消息');
+            var mydata = {
+                username: d.mine.username,
+                avatar: d.mine.avatar,
+                id: d.mine.id,
+                content: d.mine.content,
+                type: d.to.type,
+                toid: d.to.id
+                ,mine:false
+                ,fromid:d.mine.id
+                ,timestamp:1467475443306
+            };
+			  /*处理单聊事件*/
+              if (d.to.type === 'friend') {
+                if (user[mydata.toid]) {/*消息*/
+                    // io.sockets.sockets[user[mydata.toid]].emit('chatMessage', mydata);
+                    io.sockets.sockets[user[mydata.toid]].emit('chatMessage', mydata);
+                    console.log('【' + d.mine.username + '】对【' + d.to.name + '】说:' + d.mine.content);
+                } else {
+                    socket.emit('noonline', mydata);
+                }
+
+               
+               /*处理群聊事件*/ 
+            } else if (d.to.type === 'group') {
+                mydata.id = mydata.toid;
+                socket.broadcast.emit('chatMessage', mydata)
+            }
+            break;
+          }
+    });
+});
+```
+
+##前端代码
+
+其实前端的代码非常简单，只需要在代码中添加下面代码块即可：
+
+```javascript
+var socket = io("ws://localhost:3000");
+```
+
+然后是注册代码块：
+
+```javascript
+    // 在线注册
+    var temp = {
+        mine:{
+            type:"reg"
+            ,id:'100001'
+        }
+    };
+    socket.emit('message',temp);
+```
+
+这是发送消息的代码块：
+
+```javascript
+//监听发送的消息
+layim.on('sendMessage', function (res) {
+
+    res.mine.type = "chatMessage";
+    var To = res;
+    console.log(To);
+    socket.emit('message', To); //向服务器发送消息
+});
+```
+
+这是接收消息的代码块：
+
+```javascript
+//接收消息
+socket.on('chatMessage',function (res) {
+layim.getMessage(res);
+});
+```
+
+##websocket
+
+本案例使用的是websocket，websocket是一种网络通信协议，使用的时候可以类比Ajax，但是在本案例中需要注意的是，本案例引入了socketio.js，因此，关于websocket的代码并非原生websocket的写法。
+
+##附言
+
+后续我会继续更新数据库等部分的内容，代码会放在github上，当然，layim.js和layim.css的代码我会删除，大家要用，就自己想办法吧，毕竟写一个框架出来也不容易的。
