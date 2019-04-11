@@ -6352,6 +6352,9 @@ hr {
   background: #fff;
   text-align: center;
   border-top: 1px solid #eeeeee;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 .footer-links {
   margin: 10px 0;
