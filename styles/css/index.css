@@ -6103,8 +6103,8 @@ body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, 'Microsoft YaHei', sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333333;
-  background-color: #f7f7f7;
+  color: #1E1E1E;
+  background-image: url("/styles/images/2019_4_10.jpg");
 }
 input,
 button,
