@@ -3880,10 +3880,6 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-link:hover {
   color: #333333;
 }
-.navbar-inverse {
-  background-color: #1d365d;
-  border-color: #111f36;
-}
 .navbar-inverse .navbar-brand {
   color: #b9c8e0;
 }
@@ -6510,10 +6506,8 @@ hr {
   }
 }
 .docs-nav {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
-  background-color: #1d365d;
-  border-color: rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.9);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 .docs-nav .navbar-collapse {
   border-color: #111f36;
