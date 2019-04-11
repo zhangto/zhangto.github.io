@@ -6509,9 +6509,6 @@ hr {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.9);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
-.docs-nav .navbar-collapse {
-  border-color: #111f36;
-}
 .docs-nav .container .navbar-brand {
   margin: 12px 0 0;
   width: 100px;
@@ -6536,13 +6533,6 @@ hr {
 .docs-nav .navbar-nav > .active > span:hover {
   color: #fff;
   background-color: rgba(0, 0, 0, 0.2);
-}
-.docs-nav .navbar-toggle {
-  border-color: #1d365d;
-}
-.docs-nav .navbar-toggle:hover {
-  background-color: #111f36;
-  border-color: #111f36;
 }
 .btn-outline {
   color: #1d365d;
