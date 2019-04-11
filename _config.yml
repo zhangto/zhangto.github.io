@@ -6,10 +6,10 @@ url: https://www.zhangto.github.io
 resume_site: https://www.zhangto.github.io
 github: https://github.com/zhangto
 baseurl: ""
-description: my world
+description: Hello World
 meta_description: 个人博客
 motto: wang,wang,wang
-banner: 学而不思则罔，思而不学则殆。
+banner: 你说你孤独，就像很久以前，火星照耀十三个州府。
 
 #permalink: /:categories/:year/:month/:day/:title/
 permalink: /:year/:month/:day/:title/
